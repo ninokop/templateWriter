@@ -2,7 +2,9 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
+	"io/ioutil"
 	text_template "text/template"
 )
 
@@ -17,6 +19,11 @@ type Metrics struct {
 }
 
 func main() {
+	outPath := flag.String("out-path", "./output/metrics.dat", "metrics output path")
+	tmplPath := flag.String("tmpl-path", "./metrics.dat", "metrics template file path")
+	flag.Parse()
+	fmt.Printf("metrics template file path: %s, %s\n", *tmplPath, *outPath)
+
 	tmpl := text_template.New("metrics.dat")
 	t, err := tmpl.ParseFiles("./metrics.dat")
 	if err != nil {
@@ -36,5 +43,10 @@ func main() {
 		fmt.Printf("Execute get template error: %v\n", err)
 		return
 	}
-	fmt.Printf("Content Files is: %s\n", string(buffer.Bytes()))
+
+	err = ioutil.WriteFile(*outPath, buffer.Bytes(), 0644)
+	if err != nil {
+		fmt.Printf("Content Files is: %s\n", string(buffer.Bytes()))
+		return
+	}
 }
