@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	// "os"
 	text_template "text/template"
 )
 
@@ -25,9 +24,9 @@ func main() {
 		return
 	}
 	m := Metrics{
-		PluginID:      "CSE_ServiceCenter",
+		PluginID:      "nino",
 		MetricsSource: "10.120.195.2",
-		ScopeName:     "service_center",
+		ScopeName:     "sc",
 		InfaceName:    "inface_name",
 		MetricsKey:    "cpu_total",
 	}
